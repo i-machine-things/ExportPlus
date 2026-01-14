@@ -63,7 +63,7 @@ class QuickExportDialog(QtGui.QDialog):
             btn.setToolTip(f"{description}\n\nKeyboard shortcut: {shortcut}")
             btn.setMinimumHeight(40)
             btn.setStyleSheet("text-align: left; padding: 8px; font-size: 11pt;")
-            btn.clicked.connect(lambda checked, fmt=format_name: self.accept_format(fmt))
+            btn.clicked.connect(lambda checked=False, fmt=format_name: self.accept_format(fmt))
             self.format_buttons[format_name] = btn
             layout.addWidget(btn)
 
@@ -458,8 +458,8 @@ class ExportPlusQuick:
         return {
             'Pixmap': 'Std_Export',
             'MenuText': 'Quick Export...',
-            'Accel': 'Ctrl+E',
-            'ToolTip': 'Quick export - choose format (Ctrl+E)\n\nShows dialog to select export format with scaling'
+            'Accel': 'Ctrl+Shift+E',
+            'ToolTip': 'Quick export - choose format (Ctrl+Shift+E)\n\nShows dialog to select export format with scaling'
         }
 
     def Activated(self):
