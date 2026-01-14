@@ -4,7 +4,7 @@ Enhanced export functionality for FreeCAD with built-in unit scaling.
 
 ## Overview
 
-ExportPlus is a FreeCAD workbench that provides all the standard export capabilities with an added feature: **automatic unit scaling**. This allows you to export your models directly in the units you need (e.g., inches instead of millimeters) without manually scaling your models first.
+ExportPlus is a custom FreeCAD workbench that provides all the standard export capabilities with an added feature: **automatic unit scaling**. This allows you to export your models directly in the units you need (e.g., inches instead of millimeters) without manually scaling your models first.
 
 ## Features
 
@@ -16,6 +16,15 @@ ExportPlus is a FreeCAD workbench that provides all the standard export capabili
   - SVG (.svg)
   - PDF (.pdf)
 
+- **Global Keyboard Shortcuts**: Work in any workbench without switching
+  - **Ctrl+Shift+E** - Quick Export dialog
+  - **Ctrl+Shift+S** - Direct STL export
+  - **Ctrl+Shift+D** - Direct DXF export
+
+- **Quick Export Dialog**: Single shortcut (Ctrl+Shift+E) opens format chooser
+  - In-dialog shortcuts: S, T, O, D, V, P for each format
+  - No need to switch workbenches
+
 - **Global Scaling Factor**: Set one scaling factor that applies to all exports
 - **Per-Format Scaling**: Override the global setting for specific formats
 - **Quick Presets**: One-click buttons for common unit conversions:
@@ -24,19 +33,11 @@ ExportPlus is a FreeCAD workbench that provides all the standard export capabili
   - Centimeters (0.1) - Convert mm to cm
   - Meters (0.001) - Convert mm to meters
 
+- **File Menu Integration**: Access from File → Export with Scaling in any workbench
+
 ## Installation
 
-### Option 1: Build with FreeCAD
-
-This workbench is included in the FreeCAD source tree under `src/Mod/ExportPlus/`.
-
-To enable it during build:
-```bash
-cmake -DBUILD_EXPORTPLUS=ON ..
-make
-```
-
-### Option 2: Manual Installation
+### Manual Installation
 
 1. Copy the `ExportPlus` folder to your FreeCAD Mod directory:
    - **Windows**: `%APPDATA%\FreeCAD\Mod\`
@@ -49,7 +50,27 @@ make
 
 ## Usage
 
-### Basic Export with Scaling
+### Quick Export (Recommended - Works in Any Workbench)
+
+1. **Select objects** you want to export in the 3D view
+2. **Press Ctrl+Shift+E** (works in any workbench)
+3. **Choose format** by clicking or pressing S/T/O/D/V/P
+4. **Choose a file location** and save
+5. The file will be exported with the scaling factor applied
+
+### Direct Export Shortcuts (No Dialog)
+
+- **Ctrl+Shift+S** - Export directly to STL
+- **Ctrl+Shift+D** - Export directly to DXF
+
+### File Menu Export
+
+1. **Select objects** you want to export
+2. **Go to File → Export with Scaling**
+3. **Choose format** from the submenu
+4. **Choose a file location** and save
+
+### Export Plus Workbench Export
 
 1. **Select objects** you want to export in the 3D view
 2. **Switch to Export Plus workbench** from the workbench dropdown
@@ -190,10 +211,16 @@ Parameters:
 ### File Structure
 ```
 ExportPlus/
-├── Init.py                          # Module initialization
-├── InitGui.py                       # Workbench definition and GUI setup
+├── Init.py                          # Module initialization (non-GUI)
+├── InitGui.py                       # Workbench definition and global shortcuts
 ├── exportplus_commands.py           # Export command implementations
+├── exportplus_init_global.py        # Global integration (shortcuts & menu)
+├── exportplus_preferences.py        # Preferences page utilities
+├── ExportPlusPreferencePage.py      # Custom preferences page class
 ├── README.md                        # This file
+├── KEYBOARD_SHORTCUTS.md            # Keyboard shortcuts documentation
+├── USAGE.md                         # Detailed usage guide
+├── INSTALL.md                       # Installation instructions
 └── Resources/
     ├── icons/
     │   └── ExportPlus.svg          # Workbench icon
@@ -237,7 +264,6 @@ Contributions are welcome! Please:
 1. Test your changes thoroughly
 2. Follow the existing code style
 3. Update documentation
-4. Submit pull requests to the main FreeCAD repository
 
 ## License
 
@@ -253,17 +279,20 @@ Built upon FreeCAD's existing export modules:
 - importDXF
 - importSVG
 
-## Support
-
-For issues and questions:
-- FreeCAD Forum: https://forum.freecad.org/
-- Bug Reports: https://github.com/FreeCAD/FreeCAD/issues
-
 ## Changelog
+
+### Version 1.1.0 (2026-01-13)
+- **Global keyboard shortcuts** - Work in any workbench
+- **Quick Export dialog** (Ctrl+Shift+E) with format chooser
+- **File menu integration** - Access from File → Export with Scaling
+- In-dialog keyboard shortcuts (S/T/O/D/V/P)
+- Fixed lambda function bug in Quick Export dialog
+- Improved global command registration
 
 ### Version 1.0.0 (2026-01-13)
 - Initial release
-- Support for STEP, STL, OBJ, DXF, SVG formats
+- Support for STEP, STL, OBJ, DXF, SVG, PDF formats
 - Global and per-format scaling factors
 - Quick preset buttons for common conversions
 - Preferences UI integration
+- Export Plus workbench with toolbar and menu
