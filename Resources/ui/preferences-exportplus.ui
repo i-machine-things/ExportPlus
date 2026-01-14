@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Gui::Dialog::DlgSettingsExportPlus</class>
+ <widget class="QWidget" name="Gui::Dialog::DlgSettingsExportPlus">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Export Plus Settings</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <property name="spacing">
+    <number>6</number>
+   </property>
+   <property name="margin">
+    <number>9</number>
+   </property>
+
+   <!-- Global Scaling Section -->
+   <item>
+    <widget class="QGroupBox" name="groupBoxGlobal">
+     <property name="title">
+      <string>Global Export Settings</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QLabel" name="labelGlobalScale">
+          <property name="text">
+           <string>Global scaling factor</string>
+          </property>
+          <property name="toolTip">
+           <string>Default scaling factor for all exports (can be overridden per format)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::PrefDoubleSpinBox" name="doubleSpinBoxGlobalScale">
+          <property name="toolTip">
+           <string>All dimensions will be multiplied by this factor.
+Example: To export in inches instead of mm, use 0.0393701 (1/25.4)</string>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000001</double>
+          </property>
+          <property name="maximum">
+           <double>1000000.000000</double>
+          </property>
+          <property name="value">
+           <double>1.000000</double>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>GlobalScalingFactor</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/ExportPlus</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+
+      <!-- Quick preset buttons -->
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QLabel" name="labelPresets">
+          <property name="text">
+           <string>Quick presets:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnPresetMM">
+          <property name="text">
+           <string>mm (1.0)</string>
+          </property>
+          <property name="toolTip">
+           <string>Millimeters (FreeCAD default)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnPresetInches">
+          <property name="text">
+           <string>Inches (0.0393701)</string>
+          </property>
+          <property name="toolTip">
+           <string>Convert mm to inches: divide by 25.4</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnPresetCM">
+          <property name="text">
+           <string>cm (0.1)</string>
+          </property>
+          <property name="toolTip">
+           <string>Convert mm to centimeters</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnPresetMeters">
+          <property name="text">
+           <string>Meters (0.001)</string>
+          </property>
+          <property name="toolTip">
+           <string>Convert mm to meters</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+
+      <item>
+       <widget class="QLabel" name="labelInfo">
+        <property name="text">
+         <string>Note: Format-specific settings below will override the global setting.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <!-- STEP Format -->
+   <item>
+    <widget class="QGroupBox" name="groupBoxSTEP">
+     <property name="title">
+      <string>STEP Format</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QLabel" name="labelSTEPScale">
+          <property name="text">
+           <string>Scaling factor</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::PrefDoubleSpinBox" name="doubleSpinBoxSTEPScale">
+          <property name="toolTip">
+           <string>STEP-specific scaling factor (0 = use global setting)</string>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000000.000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000</double>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>STEPScalingFactor</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/ExportPlus</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <!-- STL Format -->
+   <item>
+    <widget class="QGroupBox" name="groupBoxSTL">
+     <property name="title">
+      <string>STL Format</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QLabel" name="labelSTLScale">
+          <property name="text">
+           <string>Scaling factor</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::PrefDoubleSpinBox" name="doubleSpinBoxSTLScale">
+          <property name="toolTip">
+           <string>STL-specific scaling factor (0 = use global setting)</string>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000000.000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000</double>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>STLScalingFactor</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/ExportPlus</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <!-- OBJ Format -->
+   <item>
+    <widget class="QGroupBox" name="groupBoxOBJ">
+     <property name="title">
+      <string>OBJ Format</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QLabel" name="labelOBJScale">
+          <property name="text">
+           <string>Scaling factor</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::PrefDoubleSpinBox" name="doubleSpinBoxOBJScale">
+          <property name="toolTip">
+           <string>OBJ-specific scaling factor (0 = use global setting)</string>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000000.000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000</double>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>OBJScalingFactor</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/ExportPlus</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <!-- DXF Format -->
+   <item>
+    <widget class="QGroupBox" name="groupBoxDXF">
+     <property name="title">
+      <string>DXF Format</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QLabel" name="labelDXFScale">
+          <property name="text">
+           <string>Scaling factor</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::PrefDoubleSpinBox" name="doubleSpinBoxDXFScale">
+          <property name="toolTip">
+           <string>DXF-specific scaling factor (0 = use global setting)</string>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000000.000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000</double>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>DXFScalingFactor</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/ExportPlus</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <!-- SVG Format -->
+   <item>
+    <widget class="QGroupBox" name="groupBoxSVG">
+     <property name="title">
+      <string>SVG Format</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QLabel" name="labelSVGScale">
+          <property name="text">
+           <string>Scaling factor</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::PrefDoubleSpinBox" name="doubleSpinBoxSVGScale">
+          <property name="toolTip">
+           <string>SVG-specific scaling factor (0 = use global setting)</string>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000000.000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000</double>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>SVGScalingFactor</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/ExportPlus</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <!-- Spacer -->
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+
+ <!-- Custom Widgets -->
+ <customwidgets>
+  <customwidget>
+   <class>Gui::PrefDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>Gui/PrefWidgets.h</header>
+  </customwidget>
+ </customwidgets>
+
+ <resources/>
+ <connections/>
+</ui>
